@@ -1,0 +1,380 @@
+/* ===================
+   GLOBAL
+=================== */
+
+body{
+    min-height:100vh;
+
+    background:
+    linear-gradient(
+        135deg,
+        #f8fafc,
+        #e2e8f0
+    );
+
+    transition:.3s;
+
+    font-family:
+    "Segoe UI",
+    sans-serif;
+}
+
+/* ===================
+   DARK MODE
+=================== */
+
+.dark{
+
+    background:
+    linear-gradient(
+        135deg,
+        #0f172a,
+        #1e1b4b
+    );
+
+    color:white;
+
+}
+
+.dark footer{
+    color:#cbd5e1;
+}
+
+/* ===================
+   DARK BUTTON
+=================== */
+
+#darkModeBtn{
+
+    position:fixed;
+
+    top:20px;
+    right:20px;
+
+    width:50px;
+    height:50px;
+
+    border-radius:50%;
+
+    z-index:999;
+
+}
+
+/* ===================
+   CONTAINER
+=================== */
+
+.search-container{
+
+    max-width:900px;
+
+    margin:auto;
+
+    padding-top:60px;
+
+    text-align:center;
+
+}
+
+/* ===================
+   LOGO
+=================== */
+
+.scorpio-logo{
+
+    font-size:90px;
+
+    margin-bottom:10px;
+
+    animation:
+    float 3s ease-in-out infinite;
+
+    filter:
+    drop-shadow(
+        0 0 15px rgba(168,85,247,.5)
+    );
+
+}
+
+.logo{
+
+    font-size:72px;
+
+    font-weight:800;
+
+    background:
+    linear-gradient(
+        90deg,
+        #8b5cf6,
+        #a855f7,
+        #ec4899
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+    margin-bottom:10px;
+
+}
+
+.tagline{
+
+    font-size:18px;
+
+    color:#64748b;
+
+    margin-bottom:35px;
+
+}
+
+.dark .tagline{
+
+    color:#cbd5e1;
+
+}
+
+/* ===================
+   SEARCH BOX
+=================== */
+
+#searchInput{
+
+    border:none;
+
+    border-radius:40px;
+
+    padding:16px 25px;
+
+    font-size:18px;
+
+    box-shadow:
+    0 4px 20px rgba(0,0,0,.1);
+
+}
+
+#searchInput:focus{
+
+    box-shadow:
+    0 0 0 5px
+    rgba(168,85,247,.25);
+
+}
+
+/* ===================
+   BUTTON
+=================== */
+
+#searchBtn{
+
+    border:none;
+
+    border-radius:30px;
+
+    padding:
+    12px 35px;
+
+    font-size:18px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #8b5cf6,
+        #ec4899
+    );
+
+}
+
+#searchBtn:hover{
+
+    transform:
+    translateY(-2px);
+
+}
+
+/* ===================
+   HISTORY DROPDOWN
+=================== */
+
+.history-dropdown{
+
+    display:none;
+
+    position:absolute;
+
+    width:100%;
+
+    background:white;
+
+    margin-top:5px;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 5px 20px rgba(0,0,0,.15);
+
+    z-index:999;
+
+}
+
+.dark .history-dropdown{
+
+    background:#1e293b;
+
+}
+
+.history-item{
+
+    padding:12px 20px;
+
+    cursor:pointer;
+
+    text-align:left;
+
+}
+
+.history-item:hover{
+
+    background:
+    rgba(0,0,0,.05);
+
+}
+
+.dark .history-item:hover{
+
+    background:#334155;
+
+}
+
+/* ===================
+   RESULTS
+=================== */
+
+.result-card{
+
+    background:white;
+
+    padding:20px;
+
+    margin-bottom:20px;
+
+    border-radius:18px;
+
+    text-align:left;
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.result-card:hover{
+
+    transform:
+    translateY(-3px);
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.15);
+
+}
+
+.dark .result-card{
+
+    background:#1e293b;
+
+    color:white;
+
+}
+
+.result-title{
+
+    font-size:20px;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+}
+
+.result-link{
+
+    color:#10b981;
+
+    font-size:14px;
+
+    margin-bottom:10px;
+
+}
+
+/* ===================
+   PAGINATION
+=================== */
+
+#pagination button{
+
+    border-radius:50px;
+
+}
+
+/* ===================
+   FOOTER
+=================== */
+
+footer{
+
+    margin-top:60px;
+
+    color:#64748b;
+
+}
+
+/* ===================
+   ANIMATION
+=================== */
+
+@keyframes float{
+
+    0%{
+        transform:
+        translateY(0);
+    }
+
+    50%{
+        transform:
+        translateY(-8px);
+    }
+
+    100%{
+        transform:
+        translateY(0);
+    }
+
+}
+.ranking-badge{
+
+    display:inline-block;
+
+    margin-top:8px;
+    margin-bottom:10px;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #8b5cf6,
+        #ec4899
+    );
+
+    color:white;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
