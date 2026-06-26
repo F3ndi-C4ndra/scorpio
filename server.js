@@ -1,14 +1,20 @@
 const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 
 app.use(cors());
-app.use(express.static("public"));
+
+// Serve file statis dari root project
+app.use(express.static(__dirname));
+
+// Halaman utama
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/public/index.html");
+    res.sendFile(path.join(__dirname, "index.html"));
 });
+
 const PORT = process.env.PORT || 3000;
 
 /*
@@ -18,48 +24,50 @@ SEARCH API
 */
 
 app.get("/search", async (req, res) => {
-  const query = req.query.q;
 
-  if (!query) {
-    return res.json([]);
-  }
+    const query = req.query.q;
 
-  try {
-
-const response = await axios.get(
-  "https://en.wikipedia.org/w/api.php",
-  {
-    headers: {
-      "User-Agent": "MiniSearchEngine/1.0"
-    },
-    params: {
-      action: "query",
-      list: "search",
-      srsearch: query,
-      format: "json",
-      origin: "*"
+    if (!query) {
+        return res.json([]);
     }
-  }
-);
 
-    const results = response.data.query.search.map(item => ({
-      title: item.title,
-      snippet: item.snippet.replace(/<\/?[^>]+(>|$)/g, ""),
-      url: `https://en.wikipedia.org/wiki/${encodeURIComponent(item.title)}`,
-      thumbnail: `https://www.google.com/s2/favicons?sz=64&domain=wikipedia.org`
-    }));
+    try {
 
-    res.json(results);
+        const response = await axios.get(
+            "https://en.wikipedia.org/w/api.php",
+            {
+                headers: {
+                    "User-Agent": "MiniSearchEngine/1.0"
+                },
+                params: {
+                    action: "query",
+                    list: "search",
+                    srsearch: query,
+                    format: "json",
+                    origin: "*"
+                }
+            }
+        );
 
-  } catch (error) {
+        const results = response.data.query.search.map(item => ({
+            title: item.title,
+            snippet: item.snippet.replace(/<\/?[^>]+(>|$)/g, ""),
+            url: `https://en.wikipedia.org/wiki/${encodeURIComponent(item.title)}`,
+            thumbnail: "https://www.google.com/s2/favicons?sz=64&domain=wikipedia.org"
+        }));
 
-    console.error(error);
+        res.json(results);
 
-    res.status(500).json({
-        error: error.message
-    });
+    } catch (err) {
 
-}
+        console.error(err);
+
+        res.status(500).json({
+            error: err.message
+        });
+
+    }
+
 });
 
 /*
@@ -69,31 +77,35 @@ AUTOCOMPLETE
 */
 
 app.get("/suggest", async (req, res) => {
-  const query = req.query.q;
 
-  try {
+    const query = req.query.q;
 
-    const response = await axios.get(
-      "https://en.wikipedia.org/w/api.php",
-      {
-        params: {
-          action: "opensearch",
-          search: query,
-          limit: 5,
-          namespace: 0,
-          format: "json",
-          origin: "*"
-        }
-      }
-    );
+    try {
 
-    res.json(response.data[1]);
+        const response = await axios.get(
+            "https://en.wikipedia.org/w/api.php",
+            {
+                params: {
+                    action: "opensearch",
+                    search: query,
+                    limit: 5,
+                    namespace: 0,
+                    format: "json",
+                    origin: "*"
+                }
+            }
+        );
 
-  } catch (err) {
-    res.json([]);
-  }
+        res.json(response.data[1]);
+
+    } catch (err) {
+
+        res.json([]);
+
+    }
+
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
