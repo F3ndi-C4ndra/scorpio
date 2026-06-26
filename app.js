@@ -95,7 +95,7 @@ async function performSearch() {
     try {
 
         const response =
-            await fetch(`/search?q=${encodeURIComponent(query)}`);
+            await fetch(`/api/search?q=${encodeURIComponent(query)}`);
 
         const data =
             await response.json();
@@ -248,7 +248,7 @@ searchInput.addEventListener("keyup", async () => {
     try {
 
         const response =
-            await fetch(`/suggest?q=${encodeURIComponent(query)}`);
+            await fetch(`/api/suggest?q=${encodeURIComponent(query)}`);
 
         const data =
             await response.json();
