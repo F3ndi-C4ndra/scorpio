@@ -1,7 +1,6 @@
 {
-  "name": "scorpio-search-engine",
+  "name": "scorpio",
   "version": "1.0.0",
-  "description": "Scorpio Search Engine",
   "dependencies": {
     "axios": "^1.7.0"
   }
