@@ -8,10 +8,12 @@ let currentResults = [];
 let currentPage = 1;
 
 const ITEMS_PER_PAGE = 5;
-function calculateTFIDF(results, query){
+function calculateTFIDF(results, query) {
 
-    const terms =
-        query.toLowerCase().split(" ");
+    const terms = query
+        .toLowerCase()
+        .trim()
+        .split(/\s+/);
 
     const N = results.length;
 
@@ -21,36 +23,40 @@ function calculateTFIDF(results, query){
             (doc.title + " " + doc.snippet)
             .toLowerCase();
 
+        const words = text.split(/\s+/);
+
         let score = 0;
 
         terms.forEach(term => {
 
-            const words =
-                text.split(/\s+/);
+            // =========================
+            // TF (Term Frequency)
+            // =========================
+            const termCount = words.filter(word =>
+                word.includes(term)
+            ).length;
 
-            const termCount =
-                words.filter(
-                    w => w.includes(term)
-                ).length;
+            const tf = termCount / words.length;
 
-            const tf =
-                termCount / words.length;
+            // =========================
+            // DF (Document Frequency)
+            // =========================
+            const docsWithTerm = results.filter(result => {
 
-            const docsWithTerm =
-                results.filter(r => {
+                const docText =
+                    (result.title + " " + result.snippet)
+                    .toLowerCase();
 
-                    const t =
-                        (r.title + " " + r.snippet)
-                        .toLowerCase();
+                return docText.includes(term);
 
-                    return t.includes(term);
+            }).length;
 
-                }).length;
-
+            // =========================
+            // IDF
+            // (+1 supaya tidak negatif)
+            // =========================
             const idf =
-                Math.log(
-                    N / (1 + docsWithTerm)
-                );
+                Math.log((N + 1) / (docsWithTerm + 1)) + 1;
 
             score += tf * idf;
 
@@ -58,7 +64,7 @@ function calculateTFIDF(results, query){
 
         return {
             ...doc,
-            score
+            score: Number(score.toFixed(4))
         };
 
     });
