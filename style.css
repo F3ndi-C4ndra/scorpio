@@ -400,3 +400,21 @@ footer{
 #clearHistoryBtn:hover{
     background:#d9363e;
 }
+.history-item{
+    padding:12px 15px;
+    cursor:pointer;
+}
+
+.history-item:hover{
+    background:#3c4a61;
+}
+
+.delete-history{
+    padding:2px 8px;
+    font-size:12px;
+    border-radius:50%;
+}
+
+.delete-history:hover{
+    transform:scale(1.1);
+}

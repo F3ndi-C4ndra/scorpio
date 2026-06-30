@@ -359,11 +359,19 @@ function showHistoryDropdown() {
 
     history.slice(0, 5).forEach(item => {
 
-        html += `
-            <div class="history-item">
-                🕒 ${item}
-            </div>
-        `;
+       html += `
+<div class="history-item d-flex justify-content-between align-items-center">
+    <span class="history-text">
+        🕒 ${item}
+    </span>
+
+    <button
+        class="delete-history btn btn-sm btn-danger"
+        data-key="${item}">
+        ✕
+    </button>
+</div>
+`;
 
     });
 
@@ -371,22 +379,43 @@ function showHistoryDropdown() {
 
     dropdown.style.display = "block";
 
-    document
-        .querySelectorAll(".history-item")
-        .forEach(el => {
+    document.querySelectorAll(".history-text").forEach(el => {
 
-            el.addEventListener("click", () => {
+    el.addEventListener("click", () => {
 
-                searchInput.value =
-                    el.textContent.replace("🕒 ", "");
+        searchInput.value = el.textContent.replace("🕒 ", "");
 
-                dropdown.style.display = "none";
+        dropdown.style.display = "none";
 
-                performSearch();
+        performSearch();
 
-            });
+    });
 
-        });
+});
+
+document.querySelectorAll(".delete-history").forEach(btn => {
+
+    btn.addEventListener("click", (e) => {
+
+        e.stopPropagation();
+
+        const keyword = btn.dataset.key;
+
+        let history =
+            JSON.parse(localStorage.getItem("history")) || [];
+
+        history = history.filter(item => item !== keyword);
+
+        localStorage.setItem(
+            "history",
+            JSON.stringify(history)
+        );
+
+        showHistoryDropdown();
+
+    });
+
+});
 
     document
         .getElementById("clearHistoryBtn")
