@@ -378,3 +378,25 @@ footer{
     font-weight:600;
 
 }
+.history-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 15px;
+    font-weight:bold;
+    border-bottom:1px solid rgba(255,255,255,.15);
+}
+
+#clearHistoryBtn{
+    border:none;
+    background:#ff4d4f;
+    color:white;
+    padding:4px 10px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:13px;
+}
+
+#clearHistoryBtn:hover{
+    background:#d9363e;
+}

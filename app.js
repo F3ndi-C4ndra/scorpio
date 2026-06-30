@@ -92,6 +92,14 @@ async function performSearch() {
     if (!query) return;
 
     saveHistory(query);
+    suggestions.innerHTML = "";
+
+const dropdown =
+    document.getElementById("historyDropdown");
+
+if (dropdown) {
+    dropdown.style.display = "none";
+}
 
     const loading =
         document.getElementById("loading");
@@ -340,7 +348,14 @@ function showHistoryDropdown() {
 
     }
 
-    let html = "";
+    let html = `
+        <div class="history-header">
+            <span>Recent Searches</span>
+            <button id="clearHistoryBtn">
+                Clear
+            </button>
+        </div>
+    `;
 
     history.slice(0, 5).forEach(item => {
 
@@ -370,6 +385,16 @@ function showHistoryDropdown() {
                 performSearch();
 
             });
+
+        });
+
+    document
+        .getElementById("clearHistoryBtn")
+        .addEventListener("click", () => {
+
+            localStorage.removeItem("history");
+
+            dropdown.style.display = "none";
 
         });
 
